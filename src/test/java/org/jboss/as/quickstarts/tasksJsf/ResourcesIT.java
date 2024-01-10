@@ -16,9 +16,9 @@
  */
 package org.jboss.as.quickstarts.tasksJsf;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.FileNotFoundException;
 import java.util.logging.Level;
@@ -28,25 +28,17 @@ import jakarta.enterprise.inject.Instance;
 import javax.faces.context.FacesContext;
 import jakarta.inject.Inject;
 
-import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+
+import io.quarkus.test.junit.QuarkusTest;
 
 /**
  * @author Lukas Fryc
  */
-@RunWith(Arquillian.class)
+@QuarkusTest
 public class ResourcesIT {
 
     public static final String WEBAPP_SRC = "src/main/webapp";
-
-    @Deployment
-    public static WebArchive deployment() throws IllegalArgumentException, FileNotFoundException {
-        return new DefaultDeployment().withPersistence().withFaces().getArchive()
-            .addClasses(Resources.class, FacesContextStub.class);
-    }
 
     @Inject
     private Instance<FacesContext> facesContextInstance;

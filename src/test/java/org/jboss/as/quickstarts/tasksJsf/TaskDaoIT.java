@@ -16,34 +16,29 @@
  */
 package org.jboss.as.quickstarts.tasksJsf;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.io.FileNotFoundException;
 import java.util.List;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
 
-import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.arquillian.junit.InSequence;
-import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
+
+import io.quarkus.test.junit.QuarkusTest;
 
 /**
  * @author Lukas Fryc
  * @author Oliver Kiss
  */
-@RunWith(Arquillian.class)
+@QuarkusTest
+// WARNING: Should write independent and isolated tests
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class TaskDaoIT {
-
-    @Deployment
-    public static WebArchive deployment() throws IllegalArgumentException, FileNotFoundException {
-        return new DefaultDeployment().withPersistence().withImportedData().getArchive()
-                .addClasses(Resources.class, User.class, UserDao.class, Task.class, TaskDao.class, TaskDaoImpl.class);
-    }
 
     @Inject
     private EntityManager em;
@@ -53,14 +48,14 @@ public class TaskDaoIT {
 
     private User detachedUser;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         detachedUser = new User("jdoe");
         detachedUser.setId(1L);
     }
 
     @Test
-    @InSequence(1)
+    @Order(1)
     public void user_should_be_created_with_one_task_attached() throws Exception {
         // given
         User user = new User("New user");
@@ -78,7 +73,7 @@ public class TaskDaoIT {
     }
 
     @Test
-    @InSequence(2)
+    @Order(2)
     public void all_tasks_should_be_obtained_from_detachedUser() {
         // when
         List<Task> userTasks = taskDao.getAll(detachedUser);
@@ -88,7 +83,7 @@ public class TaskDaoIT {
     }
 
     @Test
-    @InSequence(3)
+    @Order(3)
     public void range_of_tasks_should_be_provided_by_taskDao() {
         // when
         List<Task> headOfTasks = taskDao.getRange(detachedUser, 0, 1);
@@ -102,7 +97,7 @@ public class TaskDaoIT {
     }
 
     @Test
-    @InSequence(4)
+    @Order(4)
     public void taskDao_should_provide_basic_case_insensitive_full_text_search() {
         // given
         String taskTitlePart = "FIRST";
@@ -116,7 +111,7 @@ public class TaskDaoIT {
     }
 
     @Test
-    @InSequence(5)
+    @Order(5)
     public void taskDao_should_remove_task_from_detachedUser() {
         // given
         Task task = new Task();
