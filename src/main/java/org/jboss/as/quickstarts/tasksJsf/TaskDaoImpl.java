@@ -19,9 +19,9 @@ package org.jboss.as.quickstarts.tasksJsf;
 import java.util.List;
 
 import javax.ejb.Stateful;
-import javax.inject.Inject;
-import javax.persistence.EntityManager;
-import javax.persistence.TypedQuery;
+import jakarta.inject.Inject;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.TypedQuery;
 
 /**
  * Provides functionality for manipulation with tasks using the persistence context from {@link Resources}.

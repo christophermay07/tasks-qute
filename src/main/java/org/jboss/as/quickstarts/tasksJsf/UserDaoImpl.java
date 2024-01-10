@@ -19,8 +19,8 @@ package org.jboss.as.quickstarts.tasksJsf;
 import java.util.List;
 
 import javax.ejb.Stateful;
-import javax.inject.Inject;
-import javax.persistence.EntityManager;
+import jakarta.inject.Inject;
+import jakarta.persistence.EntityManager;
 
 /**
  * Provides functionality for manipulation with users using persistence context from {@link Resources}.
