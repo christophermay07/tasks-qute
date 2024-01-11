@@ -17,15 +17,12 @@
 package org.jboss.as.quickstarts.tasksJsf;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.io.FileNotFoundException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import jakarta.enterprise.inject.Instance;
-import javax.faces.context.FacesContext;
 import jakarta.inject.Inject;
 
 import org.junit.jupiter.api.Test;
@@ -41,24 +38,7 @@ public class ResourcesIT {
     public static final String WEBAPP_SRC = "src/main/webapp";
 
     @Inject
-    private Instance<FacesContext> facesContextInstance;
-
-    @Inject
     private Instance<Logger> loggerInstance;
-
-    @Test
-    public void facesContext_should_be_provided_from_current_context() {
-        FacesContextStub.setCurrentInstance(new FacesContextStub("stub"));
-
-        FacesContext facesContext = facesContextInstance.get();
-        assertNotNull(facesContext);
-        assertTrue(facesContext instanceof FacesContextStub);
-
-        FacesContextStub.setCurrentInstance(null);
-
-        facesContext = facesContextInstance.get();
-        assertNull(facesContext);
-    }
 
     @Test
     public void logger_should_be_provided_and_be_able_to_log_information_message() {

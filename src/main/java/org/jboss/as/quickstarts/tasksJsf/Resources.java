@@ -22,7 +22,6 @@ import jakarta.enterprise.context.ConversationScoped;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.enterprise.inject.Produces;
 import jakarta.enterprise.inject.spi.InjectionPoint;
-import javax.faces.context.FacesContext;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.PersistenceContextType;
@@ -54,10 +53,5 @@ public class Resources {
     public Logger getLogger(InjectionPoint ip) {
         String category = ip.getMember().getDeclaringClass().getName();
         return Logger.getLogger(category);
-    }
-
-    @Produces
-    public FacesContext getFacesContext() {
-        return FacesContext.getCurrentInstance();
     }
 }

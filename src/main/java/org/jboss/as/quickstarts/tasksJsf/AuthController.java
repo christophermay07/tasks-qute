@@ -19,8 +19,6 @@ package org.jboss.as.quickstarts.tasksJsf;
 import jakarta.enterprise.context.Conversation;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.enterprise.inject.Produces;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 
@@ -39,9 +37,6 @@ public class AuthController {
 
     @Inject
     private UserDao userDao;
-
-    @Inject
-    private FacesContext facesContext;
 
     @Inject
     private Conversation conversation;
