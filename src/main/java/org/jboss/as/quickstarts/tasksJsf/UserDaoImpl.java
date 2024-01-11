@@ -18,7 +18,7 @@ package org.jboss.as.quickstarts.tasksJsf;
 
 import java.util.List;
 
-import javax.ejb.Stateful;
+import jakarta.enterprise.context.ConversationScoped;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
 
@@ -29,7 +29,7 @@ import jakarta.persistence.EntityManager;
  * @author Oliver Kiss
  *
  */
-@Stateful
+@ConversationScoped
 public class UserDaoImpl implements UserDao {
 
     @Inject

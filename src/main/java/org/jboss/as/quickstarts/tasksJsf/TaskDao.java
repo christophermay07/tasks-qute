@@ -18,15 +18,12 @@ package org.jboss.as.quickstarts.tasksJsf;
 
 import java.util.List;
 
-import javax.ejb.Local;
-
 /**
  * Basic operations for manipulation of tasks
  *
  * @author Lukas Fryc
  *
  */
-@Local
 public interface TaskDao {
 
     void createTask(User user, Task task);
