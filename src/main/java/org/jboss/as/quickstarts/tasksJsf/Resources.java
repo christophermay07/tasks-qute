@@ -18,7 +18,7 @@ package org.jboss.as.quickstarts.tasksJsf;
 
 import java.util.logging.Logger;
 
-import javax.ejb.Stateful;
+import jakarta.enterprise.context.ConversationScoped;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.enterprise.inject.Produces;
 import jakarta.enterprise.inject.spi.InjectionPoint;
@@ -39,8 +39,7 @@ import jakarta.persistence.PersistenceContextType;
  * @author Lukas Fryc
  *
  */
-@Stateful
-@RequestScoped
+@ConversationScoped
 public class Resources {
 
     @PersistenceContext(type = PersistenceContextType.EXTENDED)
