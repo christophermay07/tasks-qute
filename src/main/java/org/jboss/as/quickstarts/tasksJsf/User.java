@@ -28,6 +28,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 
 /**
  * User entity
@@ -36,6 +37,8 @@ import jakarta.persistence.OneToMany;
  */
 @SuppressWarnings("serial")
 @Entity
+//NOTE: "User" is reserved word in some DBs!
+@Table(name="users")
 public class User implements Serializable {
 
     @Id

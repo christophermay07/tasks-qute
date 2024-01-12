@@ -35,6 +35,7 @@ import jakarta.persistence.TypedQuery;
 public class TaskDaoImpl implements TaskDao {
 
     @Inject
+    @ExtendedContext
     private EntityManager em;
 
     @Override

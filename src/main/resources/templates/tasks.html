@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<head>
+    <title>tasks-jsf</title>
+
+    <style>
+        h1 {
+            float: left;
+        }
+
+        div.clear {
+            clear: both;
+        }
+
+        .loginDetails {
+            float: right;
+        }
+
+        .taskGrid {
+            display: grid;
+            grid-template-columns: 30% 70%;
+            gap: 5px;
+            width: 100%;
+        }
+
+        .taskGrid td:first-child {
+            width: 30%;
+        }
+
+        .taskGrid td {
+            vertical-align: top;
+        }
+
+        .taskListContainer,
+        .taskDetailContainer {
+            width: 100%;
+        }
+
+        .text-link {
+            display: inline;
+            border: none;
+            padding: 0;
+            font-size: 20px;
+            background: none;
+            cursor: pointer;
+            color: blue;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Tasks</h1>
+
+    <form id="logoutForm" method="post" action="/logout">
+        <div class="loginDetails">
+            {currentUser.username} (
+            <a href="/logout">logout</a>
+            )
+        </div>
+    </form>
+
+    <div class="clear">
+        <fieldset>
+            <legend>Add Task</legend>
+            <form action="/tasks/addTask" method="post">
+                <div>
+                    <label for="taskTitle">Task title</label>
+                    <input id="taskTitle" name="taskTitle" type="text">
+                    <button type="submit">Add task</button>
+                </div>
+            </form>
+        </fieldset>
+
+        <div class="taskGrid">
+            <div id="taskGrid">
+                <fieldset>
+                    <legend>List</legend>
+                    <table>
+                        <tbody>
+                            {#for task in taskList}
+                                <tr>
+                                    <td>
+                                        <form action="/tasks/deleteTask" method="post">
+                                            <input type="hidden" name="taskId" value="{task.id}" />
+                                            <button type="submit">
+                                                <input type="checkbox" name="deleteCheckbox" />
+                                            </button>
+                                        </form>
+                                    </td>
+                                    <td>
+                                        <form action="/tasks/showTaskDetails" method="post">
+                                            <input type="hidden" name="taskId" value="{task.id}" />
+                                            <button type="submit" class="text-link">{task.title}</button>
+                                        </form>                                    
+                                    </td>
+                                </tr>
+                            {/for}
+                        </tbody>
+                    </table>
+                </fieldset>
+            </div>
+
+            <div id="taskDetail">
+                <fieldset>
+                    <legend>Detail</legend>
+                    <p>
+                        {#if currentTask != null}
+                            {currentTask.title}
+                        {/if}            
+                    </p>
+                    {#if currentTask != null}
+                        <form action="/tasks/deleteTask" method="post">
+                            <input type="hidden" name="taskId" value="{currentTask.id}">
+                            <p>
+                                <button type="submit">Complete Task</button>
+                            </p>
+                        </form>
+                    {/if}
+                </fieldset>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

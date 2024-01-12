@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>tasks-qute</title>
+</head>
+<body>
+    <h1>Tasks - Authentication</h1>
+
+    <form method="post">
+        {! NOTE: 'h:messages' was missing from original code; wanted to show what conversion would look like !}
+        {#if messages.orEmpty.size > 0}
+            <div class="messages">
+                {#for message in messages}
+                    <p>{message}</p>
+                {/for}
+            </div>
+        {/if}
+
+        <table>
+            <tr>
+                <td><label for="username">Username</label></td>
+                <td><input type="text" id="username" name="username" /></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><button type="submit">Log in</button></td>
+            </tr>
+        </table>
+    </form>
+</body>
+</html>

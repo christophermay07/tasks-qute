@@ -48,6 +48,7 @@ public class Resources {
     private EntityManager em;
 
     @Produces
+    @ExtendedContext
     public EntityManager getEm() {
         return em;
     }

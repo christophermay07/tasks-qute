@@ -37,6 +37,7 @@ import jakarta.persistence.EntityManager;
 public class UserDaoImpl implements UserDao {
 
     @Inject
+    @ExtendedContext
     private EntityManager em;
 
     public User getForUsername(String username) {
