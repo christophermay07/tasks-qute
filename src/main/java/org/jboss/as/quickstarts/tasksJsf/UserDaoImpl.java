@@ -18,18 +18,22 @@ package org.jboss.as.quickstarts.tasksJsf;
 
 import java.util.List;
 
-import jakarta.enterprise.context.ConversationScoped;
+import jakarta.enterprise.context.Dependent;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
 
 /**
  * Provides functionality for manipulation with users using persistence context from {@link Resources}.
  *
+ * NOTE: Changed to Dependent pseudo-scope due to loss of ConversationScoped;
+ * EntityManager comes from a Producer with is own scope, and there is no other
+ * state to keep track of.
+ *
  * @author Lukas Fryc
  * @author Oliver Kiss
  *
  */
-@ConversationScoped
+@Dependent
 public class UserDaoImpl implements UserDao {
 
     @Inject

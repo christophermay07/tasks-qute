@@ -16,9 +16,8 @@
  */
 package org.jboss.as.quickstarts.tasksJsf;
 
-import jakarta.enterprise.context.Conversation;
 import jakarta.enterprise.context.RequestScoped;
-import jakarta.enterprise.inject.Produces;
+import jakarta.enterprise.inject.Instance;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 
@@ -38,38 +37,13 @@ public class AuthController {
     @Inject
     private UserDao userDao;
 
+    // NOTE: Temporary workaround for loss of ConversationScoped; lazy init
     @Inject
-    private Conversation conversation;
-
-    /**
-     * <p>
-     * Provides current user to the context available for injection using:
-     * </p>
-     *
-     * <p>
-     * <code>@Inject @CurrentUser currentUser;</code>
-     * </p>
-     *
-     * <p>
-     * or from the Expression Language context using an expression <code>#{currentUser}</code>.
-     * </p>
-     *
-     * @return current authenticated user
-     */
-    @Produces
-    @Named
-    @CurrentUser
-    public User getCurrentUser() {
-        return authentication.getCurrentUser();
-    }
+    Instance<CurrentTaskStore> taskStore;
 
     /**
      * <p>
      * Authenticates current user with 'username' against user data store
-     * </p>
-     *
-     * <p>
-     * Starts the new conversation.
      * </p>
      *
      * @param username the username of the user to authenticate
@@ -84,15 +58,15 @@ public class AuthController {
             user = createUser(username);
         }
         authentication.setCurrentUser(user);
-        conversation.begin();
     }
 
     /**
-     * Logs current user out and ends the current conversation.
+     * Logs current user out and clears associated cached session data
+     * (workaround for loss of ConversationScoped)
      */
     public void logout() {
         authentication.setCurrentUser(null);
-        conversation.end();
+        taskStore.get().unset();
     }
 
     /**

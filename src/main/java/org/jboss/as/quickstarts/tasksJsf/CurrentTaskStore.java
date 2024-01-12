@@ -18,20 +18,27 @@ package org.jboss.as.quickstarts.tasksJsf;
 
 import java.io.Serializable;
 
-import jakarta.enterprise.context.ConversationScoped;
+import jakarta.enterprise.context.SessionScoped;
 import jakarta.enterprise.inject.Produces;
 import jakarta.inject.Named;
 
 /**
  * <p>
- * Holds current task in context of conversation
+ * Holds current task
  * </p>
+ *
+ * NOTE: Since ConversationScoped is not an option, need another way to store
+ * this information across multiple requests. For the purposes of the demo app,
+ * this will be made SessionScoped, and the data will be nulled out where the
+ * conversation previously ended.
+ *
+ * Use of SessionScoped requires the use of the quarkus-undertow extension.
  *
  * @author Lukas Fryc
  *
  */
 @SuppressWarnings("serial")
-@ConversationScoped
+@SessionScoped
 public class CurrentTaskStore implements Serializable {
 
     private Task currentTask;

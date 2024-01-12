@@ -18,7 +18,7 @@ package org.jboss.as.quickstarts.tasksJsf;
 
 import java.util.List;
 
-import jakarta.enterprise.context.ConversationScoped;
+import jakarta.enterprise.context.Dependent;
 import jakarta.inject.Inject;
 
 import jakarta.persistence.EntityManager;
@@ -31,7 +31,7 @@ import jakarta.persistence.TypedQuery;
  * @author Oliver Kiss
  *
  */
-@ConversationScoped
+@Dependent
 public class TaskDaoImpl implements TaskDao {
 
     @Inject

@@ -18,16 +18,25 @@ package org.jboss.as.quickstarts.tasksJsf;
 
 import java.io.Serializable;
 
-import jakarta.enterprise.context.ConversationScoped;
+import jakarta.enterprise.context.SessionScoped;
 
 /**
  * Store for current authenticated user
+ *
+ * NOTE: Since ConversationScoped is not an option, need another way to store
+ * this information across multiple requests. Ideally, this would come from an
+ * external source (e.g., JWT). For the purposes of the demo app, this will be
+ * made SessionScoped, and the data will be nulled out where the conversation
+ * previously ended.
+ *
+ * Use of SessionScoped requires the use of the quarkus-undertow extension.
  *
  * @author Lukas Fryc
  *
  */
 @SuppressWarnings("serial")
-@ConversationScoped
+// NOTE: ConversationScoped not available, so short-term fix: move to SessionScoped, and manually invalidate later.
+@SessionScoped
 public class Authentication implements Serializable {
 
     private User currentUser;

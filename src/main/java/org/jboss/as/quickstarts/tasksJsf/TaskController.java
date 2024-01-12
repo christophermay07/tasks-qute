@@ -17,7 +17,6 @@
 package org.jboss.as.quickstarts.tasksJsf;
 
 import jakarta.enterprise.context.RequestScoped;
-import jakarta.enterprise.inject.Instance;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 
@@ -40,14 +39,13 @@ public class TaskController {
     private TaskList taskList;
 
     /**
-     * Injects current user, which is provided by {@link AuthController}.
+     * Injects authentication, which is used to obtain the current user
      */
     @Inject
-    @CurrentUser
-    private Instance<User> currentUser;
+    private Authentication authentication;
 
     /**
-     * Injects current user stored in the conversation scope
+     * Injects current task store
      */
     @Inject
     private CurrentTaskStore currentTaskStore;
@@ -69,7 +67,7 @@ public class TaskController {
     public void createTask(String taskTitle) {
         taskList.invalidate();
         Task task = new Task(taskTitle);
-        taskDao.createTask(currentUser.get(), task);
+        taskDao.createTask(authentication.getCurrentUser(), task);
         if (currentTaskStore.get() == null) {
             currentTaskStore.set(task);
         }

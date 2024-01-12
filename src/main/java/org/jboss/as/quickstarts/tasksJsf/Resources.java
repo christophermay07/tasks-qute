@@ -18,8 +18,7 @@ package org.jboss.as.quickstarts.tasksJsf;
 
 import java.util.logging.Logger;
 
-import jakarta.enterprise.context.ConversationScoped;
-import jakarta.enterprise.context.RequestScoped;
+import jakarta.enterprise.context.SessionScoped;
 import jakarta.enterprise.inject.Produces;
 import jakarta.enterprise.inject.spi.InjectionPoint;
 import jakarta.persistence.EntityManager;
@@ -34,11 +33,15 @@ import jakarta.persistence.PersistenceContextType;
  *
  * &#064;Inject private EntityManager em;
  *
+ * NOTE: Changing to SessionScoped due to loss of ConversationScoped. This will
+ * increase the resources used, but will provide the same functionality in
+ * practice (carrying an extended persistence context across multiple requests)
+ * 
  * @author Pete Muir
  * @author Lukas Fryc
  *
  */
-@ConversationScoped
+@SessionScoped
 public class Resources {
 
     @PersistenceContext(type = PersistenceContextType.EXTENDED)

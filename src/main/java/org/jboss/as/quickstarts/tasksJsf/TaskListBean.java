@@ -53,13 +53,12 @@ public class TaskListBean implements TaskList {
     private TaskDao taskDao;
 
     @Inject
-    @CurrentUser
-    private User currentUser;
+    private Authentication authentication;
 
     @Override
     public List<Task> getAll() {
         if (tasks == null) {
-            tasks = taskDao.getAll(currentUser);
+            tasks = taskDao.getAll(authentication.getCurrentUser());
         }
         return tasks;
     }
